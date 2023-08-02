@@ -12,13 +12,13 @@ const level = () => {
 }
 
 // Function to format the timestamp with the desired timezone
-const formatTimestamp = (timestamp :any) => {
-  return moment().tz(TIME_ZONE).format();
+const formatTimestamp = (timestamp: any) => {
+    return moment().tz(TIME_ZONE).format();
 };
 
 // Create a custom log format with timestamp and timezone
-const customFormat = winston.format.printf(({ level, message, timestamp }) => {
-    return `${formatTimestamp(timestamp)} [${level.toUpperCase()}] > ${message}`;
+const customFormat = winston.format.printf(({ timestamp, level, message, label}) => {
+    return `${formatTimestamp(timestamp)} [${level.toUpperCase()}] -- ${message}`;
 });
 
 const formatConsole = winston.format.combine(

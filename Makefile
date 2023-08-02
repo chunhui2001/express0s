@@ -10,19 +10,14 @@ zone 		?=UTC
 list:
 	npm list -g --depth=0
 
-clear:
-	rm -rf dist
-
-prune: clear
+prune:
 	rm -rf node_modules
 
 install:
 	npm i
 
-compile:
-	npx tsc
-
-run: clear compile
+run:
+	rm -rf dist && npx tsc
 	export TZ=$(zone) && node ./dist/main.js
 
 serve:

@@ -1,6 +1,6 @@
 {
   "name": "express0s",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Quick Boilerplate for Express",
   "main": "dist/index.js",
   "types": "express0s.d.ts",
