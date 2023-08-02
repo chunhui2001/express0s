@@ -11,7 +11,7 @@ const fileUpload = require('express-fileupload');
 const rewrite = require('express-urlrewrite');
 const useragent = require('express-useragent');
 
-import Logger from './winston-logger';
+import { Logger } from './winston-logger';
 import { ErrorHandler } from './error';
 import { CommonRoutesConfig } from './common.routes.config'; 
 import { Response } from './response';
@@ -19,6 +19,8 @@ import { acceessLogger } from './access-logger';
 
 const faviconConfig = require('./favicon.config');
 // const acceessLogger = require('./access-logger.config');
+
+const logger = Logger(module)
 
 export function createServer(APP_ROOT_DIR: string, customerRouters: any[], callback: any) {    
 
@@ -76,16 +78,16 @@ export function createServer(APP_ROOT_DIR: string, customerRouters: any[], callb
     });
 
     process.on('unhandledRejection', (err: Error) => {
-        Logger.error(`unhandledRejection: errorName=${err.name}, errorMessage=${err.message}, stack=${err.stack}`);
+        logger.error(`unhandledRejection: errorName=${err.name}, errorMessage=${err.message}, stack=${err.stack}`);
     });
 
     server.listen(serverPort, () => {
         
-        Logger.info(`APP_ROOT_DIR: ${APP_ROOT_DIR}`);
-        Logger.info(`${serverName} running [${process.env.NODE_ENV || 'development'}] on http://0.0.0.0:${serverPort} at ${moment().format('YYYY-MM-DDTHH:mm:ssZ')}`);
+        logger.info(`APP_ROOT_DIR: ${APP_ROOT_DIR}`);
+        logger.info(`${serverName} running [${process.env.NODE_ENV || 'development'}] on http://0.0.0.0:${serverPort} at ${moment().format('YYYY-MM-DDTHH:mm:ssZ')}`);
         
         routes.forEach((route: CommonRoutesConfig) => {
-            Logger.info(`${serverName} Routes configured for ${route.getName()}`);
+            logger.info(`${serverName} Routes configured for ${route.getName()}`);
         });
 
         if (callback) {

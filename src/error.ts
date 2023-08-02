@@ -1,10 +1,12 @@
 import express from 'express';
 import { AssertionError } from 'chai';
 
-import Logger from './winston-logger';
+import { Logger } from './winston-logger';
 import { Response } from './response';
 
 const SERVER_NAME: string = process.env.SERVER_NAME || 'ExpressServer';
+
+const logger = Logger(module)
 
 export class ErrorHandler extends Error {
   
@@ -25,10 +27,10 @@ export class ErrorHandler extends Error {
     }
     if (err instanceof ErrorHandler) {
       const { code, message } = err;
-      Logger.info(`ErrorHandler: errorCode=${code}, errorMessage=${message}`);
+      logger.info(`ErrorHandler: errorCode=${code}, errorMessage=${message}`);
       return res.status(200).json(Response.errorResponse(code, `Process-Failed: \`${message}\``));
     }
-    Logger.error(`ErrorHandler: type=${typeof err}, errorCode=${errCode}, errorMessage=${err.message || err.stack?.toString().split('\n')[0]}, stack=${err.stack}`);
+    logger.error(`ErrorHandler: type=${typeof err}, errorCode=${errCode}, errorMessage=${err.message || err.stack?.toString().split('\n')[0]}, stack=${err.stack}`);
     return res.status(500).json(Response.errorResponse(500, `Server-Internal-Error: \`${err.message || err.stack?.toString().split('\n')[0]}\``));
   }
 

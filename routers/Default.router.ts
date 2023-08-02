@@ -1,10 +1,12 @@
 import express from 'express';
 import { expect } from 'chai';
 
-import Logger from '../src/winston-logger';
+import { Logger } from '../src/winston-logger';
 
 import { CommonRoutesConfig } from '../src/common.routes.config';
 import { ErrorHandler } from '../src/error';
+
+const logger = Logger(module)
 
 export class DefaultRouter extends CommonRoutesConfig {
     

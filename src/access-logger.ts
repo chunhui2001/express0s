@@ -1,9 +1,11 @@
 import express, { Request, Response } from 'express';
 
 import morgan, { StreamOptions } from 'morgan';
-import Logger from './winston-logger';
+import { Logger } from './winston-logger';
 
 // Custom token format for morgan to log
+
+const logger = Logger(module)
 
 morgan.token('protocol', (req: Request, res: Response): string => {
   return 'HTTP/' + req.httpVersion; // If req.protocol is not available, fallback to req.httpVersion
@@ -25,7 +27,7 @@ morgan.token('remote-addr', (req: Request, res: Response): string => {
 const loggerFormat: string = 'Access :remote-addr ":method :url :protocol" :status :res[content-length]/bytes :response-time/ms';
 
 const stream: StreamOptions = {
-    write: (message: string) => Logger.info(message)
+    write: (message: string) => logger.info(message)
 }
 
 function skipLog(req: express.Request, res: express.Response) {
