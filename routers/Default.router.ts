@@ -1,12 +1,12 @@
 import express from 'express';
 import { expect } from 'chai';
 
-import { Logger } from '../src/winston-logger';
+import { Logger, CreateLogger } from '../src/winston-logger';
 
 import { CommonRoutesConfig } from '../src/common.routes.config';
 import { ErrorHandler } from '../src/error';
 
-const logger = Logger(module)
+const logger = CreateLogger.get(module)
 
 export class DefaultRouter extends CommonRoutesConfig {
     
@@ -40,6 +40,13 @@ export class DefaultRouter extends CommonRoutesConfig {
             .get((req: express.Request, res: express.Response, next: express.NextFunction) => {
                 const s: any = {};
                 return res.status(200).json({ code: 200, message: 'OK', data: s.data.result });
+            });
+
+        // 示例内部异常
+        this.app.route(`/line-number`)
+            .get((req: express.Request, res: express.Response, next: express.NextFunction) => {
+                logger.info(`line-number`)
+                return res.status(200).json({ code: 200, message: 'OK', data: null });
             });
             
         return this.app;

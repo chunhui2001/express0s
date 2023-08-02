@@ -1,10 +1,10 @@
 import express from 'express';
 import { AssertionError } from 'chai';
 
-import { Logger } from './winston-logger';
+import { CreateLogger } from './winston-logger';
 import { Response } from './response';
 
-const logger = Logger(module)
+const logger = CreateLogger.get(module)
 
 export class ErrorHandler extends Error {
   

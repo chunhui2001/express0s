@@ -11,16 +11,14 @@ const fileUpload = require('express-fileupload');
 const rewrite = require('express-urlrewrite');
 const useragent = require('express-useragent');
 
-import { Logger } from './winston-logger';
+import { CreateLogger } from './winston-logger';
 import { ErrorHandler } from './error';
 import { CommonRoutesConfig } from './common.routes.config'; 
 import { Response } from './response';
 import { acceessLogger } from './access-logger';
 
 const faviconConfig = require('./favicon.config');
-// const acceessLogger = require('./access-logger.config');
-
-const logger = Logger(module)
+const logger = CreateLogger.get(module)
 
 export function createServer(APP_ROOT_DIR: string, customerRouters: any[], callback: any) {    
 

@@ -1,11 +1,9 @@
 import express, { Request, Response } from 'express';
 
 import morgan, { StreamOptions } from 'morgan';
-import { Logger } from './winston-logger';
+import { CreateLogger } from './winston-logger';
 
-// Custom token format for morgan to log
-
-const logger = Logger(module)
+const logger = CreateLogger.get(module)
 
 morgan.token('protocol', (req: Request, res: Response): string => {
   return 'HTTP/' + req.httpVersion; // If req.protocol is not available, fallback to req.httpVersion
