@@ -30,10 +30,6 @@ up: rm
 	docker-compose -f docker-compose.yml up -d
 	docker logs -f $(APP_NAME)
 
-serve:
-	npm i --prefix /app/$(APP_NAME) && npm run start --prefix /app/$(APP_NAME)
-
-
 ### https://registry.npmjs.org/express0s
 publish:
 	rm -rf dist && npx tsc
