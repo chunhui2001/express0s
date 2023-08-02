@@ -13,13 +13,13 @@ services:
   express0s:
     container_name: express0s
     #image: chunhui2001/alpine:3.9.node_12.18.3
-    image: chunhui2001/chunhui2001/alpine:3.9.node_16
+    image: chunhui2001/alpine:3.9.node_16
     hostname: express0s
     #mem_limit: 300m
     ports:
       - 3000:3000
-    entrypoint: ["/bin/sh", "-c", "while true; do echo 1 >/dev/null 2>/dev/null; sleep 1; done"]
-    #entrypoint: ["make", "-f", "/express0s/Makefile", "run"]
+    #entrypoint: ["/bin/sh", "-c", "while true; do echo 1 >/dev/null 2>/dev/null; sleep 1; done"]
+    entrypoint: ["make", "-f", "/express0s/Makefile", "run"]
     volumes:
       - ../express0s:/express0s:rw
     restart: always
