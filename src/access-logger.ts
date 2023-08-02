@@ -27,7 +27,7 @@ morgan.token('remote-addr', (req: Request, res: Response): string => {
 const loggerFormat: string = 'Access :remote-addr ":method :url :protocol" :status :res[content-length]/bytes :response-time/ms';
 
 const stream: StreamOptions = {
-    write: (message: string) => logger.info(message)
+    write: (message: string) => logger.info(message.trim())
 }
 
 function skipLog(req: express.Request, res: express.Response) {
