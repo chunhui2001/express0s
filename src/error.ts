@@ -4,8 +4,6 @@ import { AssertionError } from 'chai';
 import { Logger } from './winston-logger';
 import { Response } from './response';
 
-const SERVER_NAME: string = process.env.SERVER_NAME || 'ExpressServer';
-
 const logger = Logger(module)
 
 export class ErrorHandler extends Error {
@@ -35,7 +33,7 @@ export class ErrorHandler extends Error {
   }
 
   static errorResponse (errCode: number, errorMesage: string) {
-    return { code: errCode, message: errorMesage, app: '${SERVER_NAME}' }
+    return { code: errCode, message: errorMesage, app: process.env.SERVER_NAME || 'ExpressServer' }
   }
 
 }
